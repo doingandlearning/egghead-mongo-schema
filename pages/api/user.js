@@ -1,26 +1,20 @@
-var MongoClient = require("mongodb").MongoClient;
-var url = "mongodb+srv://kevinc:THISisa1234@course-sm27n.mongodb.net/";
+const User = require("../../models/user");
 
 export default async (req, res) => {
-  const user = req.body ? JSON.parse(req.body) : null;
+  const incomingUser = req.body ? JSON.parse(req.body) : null;
 
   try {
-    if (!user) {
+    if (!incomingUser) {
       throw "No user object sent";
     }
-
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err;
-      var dbo = db.db("test");
-
-      dbo.collection("users").insertOne(user, function (err, response) {
-        if (err.code === 11000) {
-          res.send({ error: "Email ID already exists" });
-          return;
-        }
-        if (err) throw err;
-        res.send(response);
-      });
+    const newUser = new User(incomingUser);
+    await newUser.save(function (err, user) {
+      if (err && err.code === 11000) {
+        res.send({ error: "Email ID already exists" });
+        return;
+      }
+      if (err) return console.error(err);
+      res.send({ success: `${user.email} saved to collection.` });
     });
   } catch (error) {
     res.status(400);
