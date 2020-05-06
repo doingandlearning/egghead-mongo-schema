@@ -12,9 +12,7 @@ mongoose
   .then(() => console.log("DB server connect"))
   .catch((e) => console.log("DB error", e));
 
-// Needed if using findOneAndUpdate
-mongoose.set("useFindAndModify", false);
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
   name: String,
