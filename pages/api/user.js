@@ -14,7 +14,7 @@ export default async (req, res) => {
       var dbo = db.db("test");
 
       dbo.collection("users").insertOne(user, function (err, response) {
-        if (err.code === 11000) {
+        if (err && err.code === 11000) {
           res.send({ error: "Email ID already exists" });
           return;
         }
