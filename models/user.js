@@ -1,5 +1,5 @@
 // Set up mongoose wrapper for mongo
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const url = "mongodb+srv://kevinc:THISisa1234@course-sm27n.mongodb.net/";
 
 mongoose
@@ -18,7 +18,7 @@ mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
 const Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+const userSchema = new Schema({
   name: String,
   email: String,
   avatarUrl: String,
