@@ -12,8 +12,6 @@ mongoose
   .then(() => console.log("DB server connect"))
   .catch((e) => console.log("DB error", e));
 
-mongoose.Promise = Promise;
-
 // Needed if using findOneAndUpdate
 mongoose.set("useFindAndModify", false);
 const Schema = mongoose.Schema;
